@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Large / regenerable files
+*.keras
+*.h5
+cifar-10-batches-py/
+*.tar.gz
+
+# Images saved by the controller at runtime
+webots/controllers/images/
