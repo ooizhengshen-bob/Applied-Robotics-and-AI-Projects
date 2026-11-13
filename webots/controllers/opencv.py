@@ -71,10 +71,11 @@ def get_right_sensor():
 # RED object detection
 # ----------------------------------
 
+debug_step = 0 
 def red_seen_center():
+    global debug_step
 
     img = cam.getImage()
-
     if img is None:
         return False
 
@@ -85,9 +86,16 @@ def red_seen_center():
     g = cam.imageGetGreen(img, W, x, y)
     b = cam.imageGetBlue(img, W, x, y)
 
-    return (r > R_MIN) and (g < G_MAX) and (b < B_MAX)
+    is_red = (r > R_MIN) and (g < G_MAX) and (b < B_MAX)
 
 
+    debug_step += 1
+    if is_red or debug_step % 15 == 0:
+        print(f"centre pixel RGB = ({r:3d}, {g:3d}, {b:3d})  "
+              f"R>{R_MIN}:{r > R_MIN}  G<{G_MAX}:{g < G_MAX}  B<{B_MAX}:{b < B_MAX}  "
+              f"-> {'RED' if is_red else 'not red'}")
+
+    return is_red
 # ----------------------------------
 # Capture and save camera image
 # ----------------------------------
